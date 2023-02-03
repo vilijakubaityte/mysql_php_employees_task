@@ -1,15 +1,24 @@
 <?php
 require_once 'db.php';
-$result=$db->query('SELECT * FROM employees');
-$employees=$result->fetchAll(PDO::FETCH_ASSOC);
 
 $result=$db->query('SELECT * FROM positions');
 $positions=$result->fetchAll(PDO::FETCH_ASSOC);
 
 
+if(isset($_GET['delete'])){
+    $stm = $db->prepare("DELETE FROM `employees` WHERE id=?");
+    $stm->execute([$_GET['delete']]);
+}
+
+
+$result=$db->query('SELECT * FROM employees');
+$employees=$result->fetchAll(PDO::FETCH_ASSOC);
+
+$counter = 1;
+
+
+
 ?>
-
-
 
 <!doctype html>
 <html lang="en">
@@ -28,6 +37,7 @@ $positions=$result->fetchAll(PDO::FETCH_ASSOC);
             <div class="card">
                 <div class="card-header bg-secondary text-white py-3">Darbuotojų sąrašas</div>
                 <div class="card-body">
+                    <a href="new.php" class="btn btn-secondary float-end">Pridėti naują darbuotoją</a>
                     <table class="table">
                         <thead>
                         <tr>
@@ -42,15 +52,17 @@ $positions=$result->fetchAll(PDO::FETCH_ASSOC);
                         <tbody>
                   <?php foreach ($employees as $employee){?>
                       <tr>
-                          <td><?=$employee['id']?></td>
+                          <td><?=$counter?></td>
                           <td><?=$employee['name']?></td>
                           <td><?=$employee['surname']?></td>
                           <td><?=$employee['phone']?></td>
                           <td><?=$employee['education']?></td>
                           <td><?=$employee['salary']?></td>
                           <td><a class="btn btn-secondary" href="more.php?id=<?=$employee['id']?>">Plačiau</a> </td>
+                          <td><a class="btn btn-success" href="update.php?id=<?=$employee['id']?>">Redaguoti</a> </td>
+                          <td><a class="btn btn-danger" href="index.php?delete=<?=$employee['id']?>">Ištrinti</a> </td>
                       </tr>
-                  <?php } ?>
+                  <?php $counter++; } ?>
                         </tbody>
                     </table>
                 </div>

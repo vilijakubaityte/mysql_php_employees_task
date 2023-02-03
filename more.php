@@ -69,43 +69,43 @@ function calculateNPD($employee) {
             <table class="table table-hover">
             <tr>
                 <td>Priskaičiuotas atlyginimas „ant popieriaus“:</td>
-                <td><?=$employee['salary']?> EUR</td>
+                <td><?=number_format($employee['salary'],2)?> EUR</td>
             </tr>
             <tr>
                 <td>Pritaikytas NPD</td>
-                <td><?=$npd = calculateNPD($employee)?> EUR</td>
+                <td><?=$npd = number_format(calculateNPD($employee),2)?> EUR</td>
             </tr>
             <tr>
                 <td>Pajamų mokestis 20 %</td>
-                <td><?= round(($employee['salary'] - $npd) *  0.2, 2); ?> EUR</td>
+                <td><?= number_format(round(($employee['salary'] - $npd) *  0.2, 2),2); ?> EUR</td>
             </tr>
             <tr>
                 <td>Sodra. Sveikatos draudimas 6,98 %</td>
-                <td><?=round($employee['salary'] *  0.0698, 2)?> EUR</td>
+                <td><?=number_format(round($employee['salary'] *  0.0698, 2),2)?> EUR</td>
             </tr>
             <tr>
                 <td>Sodra. Pensijų ir soc. draudimas 12.52 %</td>
-                <td><?=round($employee['salary'] * 0.1252, 2)?> EUR</td>
+                <td><?=number_format(round($employee['salary'] * 0.1252, 2),2)?> EUR</td>
             </tr>
             <tr class="bg-light">
                 <td>Išmokamas atlyginimas „į rankas“:</td>
-                <td><b><?= round(($employee['salary'] - $npd) - (($employee['salary'] - $npd) *  0.2) - ($employee['salary'] *  0.0698) - ($employee['salary'] * 0.1252) + $npd, 2); ?> EUR</b></td>
+                <td><b><?= number_format(round(($employee['salary'] - $npd) - (($employee['salary'] - $npd) *  0.2) - ($employee['salary'] *  0.0698) - ($employee['salary'] * 0.1252) + $npd, 2),2); ?> EUR</b></td>
             </tr>
             <tr>
                 <td colspan="2"><b>Darbo vietos kaina</b></td>
             </tr>
             <tr>
                 <td>Sodra 1.77 %:</td>
-                <td><?=round($employee['salary'] *  0.0177, 2)?> EUR</td>
+                <td><?=number_format(round($employee['salary'] *  0.0177, 2),2)?> EUR</td>
             </tr>
             <tr>
                 <td>Įmokos į garantinį fondą 0.2 % :</td>
-                <td><?=round($employee['salary'] *  0.002, 2)?> EUR</td>
+                <td><?=number_format(round($employee['salary'] *  0.002, 2),2)?> EUR</td>
 
             </tr>
             <tr class="bg-light">
                 <td>Visa darbo vietos kaina :</td>
-                <td><b><?=round($employee['salary'] + ($employee['salary'] *  0.0177), 2)?></b></td>
+                <td><b><?=number_format(round($employee['salary'] + ($employee['salary'] *  0.0177), 2),2)?> EUR</b></td>
             </tr>
         </table>
     </div>
